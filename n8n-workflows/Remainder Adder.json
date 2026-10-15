@@ -1,0 +1,414 @@
+{
+  "name": "Remainder Adder",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Remainder_Task",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        32,
+        -256
+      ],
+      "id": "2ded1398-7288-4a66-a318-c7397413ee5c",
+      "name": "Webhook",
+      "webhookId": "9d0b25db-6087-4a48-b10c-bfb92a0b766a"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Your Remainder Added Successfully",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1376,
+        -352
+      ],
+      "id": "95736264-c998-4523-9418-7127ec354bc8",
+      "name": "Respond to Website"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1s8oahj1iLpAuukNWy4mK3QdRkdFNkzTw3A6MFSaUkMc",
+          "mode": "list",
+          "cachedResultName": "Remainder_Task",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1s8oahj1iLpAuukNWy4mK3QdRkdFNkzTw3A6MFSaUkMc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Task Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1s8oahj1iLpAuukNWy4mK3QdRkdFNkzTw3A6MFSaUkMc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Task Type": "={{ $json.task_type }}",
+            "Task Name": "={{ $json.task_name }}",
+            "Due Date & Time": "={{ $json.due_datetime }}",
+            "Your Email": "={{ $json.email }}",
+            "Reminder Message": "={{ $json.reminder_message }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Task Type",
+              "displayName": "Task Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Task Name",
+              "displayName": "Task Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Due Date & Time",
+              "displayName": "Due Date & Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Your Email",
+              "displayName": "Your Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reminder Message",
+              "displayName": "Reminder Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1152,
+        -352
+      ],
+      "id": "fb58c8d9-f4d3-4f22-8efa-cfbee1abce59",
+      "name": "Append Value in Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "T8qj492xhs9evaYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "549e2eac-8dee-4b5e-a645-b9f33de2cec8",
+              "name": "task_type",
+              "value": "={{ $('Webhook').first().json.body.task_type }}",
+              "type": "string"
+            },
+            {
+              "id": "10d593f1-4e97-483b-9666-7511b45853aa",
+              "name": "task_name",
+              "value": "={{ $('Webhook').first().json.body.task_name }}",
+              "type": "string"
+            },
+            {
+              "id": "c36994c9-cc90-408f-bf72-835c81d909d0",
+              "name": "due_datetime",
+              "value": "={{ $('Webhook').first().json.body.due_datetime }}",
+              "type": "string"
+            },
+            {
+              "id": "26c6b656-7552-457a-8c30-3f8e78b7d8f3",
+              "name": "email",
+              "value": "={{ $('Webhook').first().json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "2af7b373-bf93-4581-afcd-c711d579fa88",
+              "name": "reminder_message",
+              "value": "={{ $('Webhook').first().json.body.reminder_message }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        928,
+        -352
+      ],
+      "id": "ad4ece41-9237-48d6-8ecb-1a6af9b08d6c",
+      "name": "Extract Values"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1s8oahj1iLpAuukNWy4mK3QdRkdFNkzTw3A6MFSaUkMc",
+          "mode": "list",
+          "cachedResultName": "Remainder_Task",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1s8oahj1iLpAuukNWy4mK3QdRkdFNkzTw3A6MFSaUkMc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Task Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1s8oahj1iLpAuukNWy4mK3QdRkdFNkzTw3A6MFSaUkMc/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        256,
+        -256
+      ],
+      "id": "222c51df-690c-4d0e-920f-2cff22f02eb3",
+      "name": "Get row(s) in sheet",
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "T8qj492xhs9evaYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6554336d-2f08-4ad7-ba42-50556b47265c",
+              "leftValue": "={{ $json.count < 10 }}",
+              "rightValue": "=3",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        704,
+        -256
+      ],
+      "id": "424cd086-bc02-409b-8097-59c42a64cf95",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "🚫 For security reasons, you can only add 10 tasks per day. You’ve reached that limit for today.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        928,
+        -160
+      ],
+      "id": "e924cddc-be36-487c-9057-2158adb030af",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get Google Sheet rows (input 0)\nconst sheetRows = $input.all(0).map(item => item.json);\n\n// Get webhook email from input 1\nconst webhookData = $('Webhook').first();\nconst webhookEmail = webhookData?.json?.body?.email;\n\n// If no sheet data, allow adding new email\nif (!sheetRows.length) {\n  return [\n    {\n      json: {\n        count: 0,\n        action: 'add_new'\n      }\n    }\n  ];\n}\n\n// Count matches in sheet\nconst matches = sheetRows.filter(row => row[\"Your Email\"] === webhookEmail);\n\n// If no match, allow adding new email\nif (matches.length === 0) {\n  return [\n    {\n      json: {\n        count: 0,\n        action: 'add_new'\n      }\n    }\n  ];\n}\n\n// If match found, return count\nreturn [\n  {\n    json: {\n      count: matches.length,\n      action: 'exists'\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -256
+      ],
+      "id": "9a3d334d-889f-42ed-ad5d-a36c13997d70",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 256,
+        "width": 608,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        224,
+        -320
+      ],
+      "typeVersion": 1,
+      "id": "65574ed4-9c1e-4125-ae06-ea0473301f85",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "width": 224,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        880,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "0b53aa8f-d356-4034-89f6-63507694da8d",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 192,
+        "width": 688,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        880,
+        -384
+      ],
+      "typeVersion": 1,
+      "id": "a77bea83-904a-43f1-b50c-a3c95211a2f8",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Value in Sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Website",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Values": {
+      "main": [
+        [
+          {
+            "node": "Append Value in Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Extract Values",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "3d46ce3a-d937-4363-b74a-f3791f7a75cb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "872cf515a8a57099421277b576e119a5b910866ac7ead4ce8d8314cc3d209e11"
+  },
+  "nodeGroups": [],
+  "id": "3St9aBLmsRDGxCDR",
+  "tags": []
+}

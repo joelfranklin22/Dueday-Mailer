@@ -1,0 +1,232 @@
+{
+  "name": "Email Remainder Trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "sendTo": "={{ $json['Your Email'] }}",
+        "subject": "={{ $json['Task Name'] }}",
+        "emailType": "text",
+        "message": "={{ $json['Task Name'] }}\n{{ $json['Reminder Message'] }}",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "📅 Task Notifier"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        320,
+        144
+      ],
+      "id": "8b3d000f-7511-4ada-a1bf-327ffa4dbf44",
+      "name": "Send a message",
+      "webhookId": "48aee3c4-d62e-4f5f-b752-294804720f4e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "HnYpCdaY8bQutnCA",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1s8oahj1iLpAuukNWy4mK3QdRkdFNkzTw3A6MFSaUkMc",
+          "mode": "list",
+          "cachedResultName": "Remainder_Task",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1s8oahj1iLpAuukNWy4mK3QdRkdFNkzTw3A6MFSaUkMc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Task Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1s8oahj1iLpAuukNWy4mK3QdRkdFNkzTw3A6MFSaUkMc/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        224,
+        -128
+      ],
+      "id": "5cc9b671-a668-416b-b2ea-95d08d5e4ec3",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "T8qj492xhs9evaYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 512,
+        "width": 948,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -320,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "deb9e1e0-8805-4b09-ae46-c1343816b73d",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9da98760-1d15-4482-bd4d-0457f753d21f",
+              "name": "Time",
+              "value": "={{ $now.setZone('Asia/Kolkata').toFormat('yyyy-MM-dd').trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        32,
+        -128
+      ],
+      "id": "0e2b7425-440f-4382-8c20-1de8cc5c8f7e",
+      "name": "Date Check"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "37848e44-5d24-47e4-86ef-8426f05e43ae",
+              "name": "Task Name",
+              "value": "={{ $json['Task Name'] }}",
+              "type": "string"
+            },
+            {
+              "id": "e44b456e-2c65-4d23-a10a-90cce9bb37fa",
+              "name": "Due Date & Time",
+              "value": "={{ $json['Due Date & Time'] }}",
+              "type": "string"
+            },
+            {
+              "id": "302c4d2b-08be-423f-8c70-60337a15871a",
+              "name": "Your Email",
+              "value": "={{ $json['Your Email'] }}",
+              "type": "string"
+            },
+            {
+              "id": "4f0c9759-45cd-4d59-91e7-63d07e36271b",
+              "name": "Reminder Message",
+              "value": "={{ $json['Reminder Message'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        144
+      ],
+      "id": "9653de9f-d823-4596-ae7f-0787246afa97",
+      "name": "Extract Value from Sheet"
+    },
+    {
+      "parameters": {
+        "jobName": "Remainder_Task",
+        "cronExpression": "30 3 * * *"
+      },
+      "type": "n8n-nodes-cronlytic.cronlyticTrigger",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        -128
+      ],
+      "id": "54772dd1-8c13-426e-8fd8-b5126df97509",
+      "name": "Cronlytic Trigger",
+      "webhookId": "32817704-137e-4d52-a276-0ff8d0a5ac6e",
+      "credentials": {
+        "cronlyticApi": {
+          "id": "givHOpUKalPJexDd",
+          "name": "Cronlytic account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Extract Value from Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date Check": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Value from Sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cronlytic Trigger": {
+      "main": [
+        [
+          {
+            "node": "Date Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "8f91e57b-487b-4199-97bc-cec852b28ab2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "872cf515a8a57099421277b576e119a5b910866ac7ead4ce8d8314cc3d209e11"
+  },
+  "nodeGroups": [],
+  "id": "5avEZzvAah2dV9I8",
+  "tags": []
+}
