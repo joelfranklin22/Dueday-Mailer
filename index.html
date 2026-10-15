@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DueDay Mailer</title>
+    <link rel="icon" type="image/png" href="/assets/dueday_Mailer_logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/style.css" />
+  </head>
+  <body>
+    <main class="card">
+      <section class="intro">
+        <h1>DueDay Mailer</h1>
+        <p class="tagline">
+          Tell it what is due and when. It sends you an email on the day, so
+          nothing slips.
+        </p>
+
+        <ol class="steps">
+          <li>Fill in the task and pick the due date.</li>
+          <li>Your reminder is saved in a Google Sheet.</li>
+          <li>On the due date, an email lands in your inbox.</li>
+        </ol>
+      </section>
+
+      <section class="form-side">
+        <form id="reminderForm">
+          <label for="type">Task type</label>
+          <select id="type" required>
+            <option value="">Select a type</option>
+            <option value="🧾 Bill Payment">🧾 Bill Payment</option>
+            <option value="📚 Study Task">📚 Study Task</option>
+            <option value="🏢 Work/Office Task">🏢 Work/Office Task</option>
+            <option value="🛒 Personal Errands">🛒 Personal Errands</option>
+            <option value="💬 Call/Message Someone">
+              💬 Call/Message Someone
+            </option>
+            <option value="⏳ Project Deadline">⏳ Project Deadline</option>
+            <option value="🧘 Self-Care / Habits">🧘 Self-Care / Habits</option>
+            <option value="💼 Appointments">💼 Appointments</option>
+          </select>
+
+          <label for="title">Task name</label>
+          <input type="text" id="title" required placeholder="e.g. Task name" />
+
+          <label for="datetime">Due date</label>
+          <input type="date" id="datetime" required />
+
+          <label for="email">Your email</label>
+          <input
+            type="email"
+            id="email"
+            required
+            autocomplete="email"
+            placeholder="you@example.com"
+          />
+
+          <label for="message">Note (optional)</label>
+          <textarea
+            id="message"
+            rows="3"
+            placeholder="Add a time or anything you want to remember"
+          ></textarea>
+
+          <button type="submit" id="submitBtn">Set reminder</button>
+          <p class="success" id="successMsg" role="status"></p>
+
+          <div class="contact-box" id="contactBox" hidden>
+            <p>
+              This demo runs on my n8n workflow, and it looks like it is
+              switched off right now. Please mail me to activate it:
+            </p>
+            <p class="mail-address" id="mailAddress"></p>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
