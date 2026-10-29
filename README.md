@@ -33,8 +33,6 @@ Live demo:  [duedaymailer.netlify.app](https://duedaymailer.netlify.app/)<un net
 
 ```
 ## Project structure
-```
-
 dueday-mailer/
 ├── assets/              (logo, favicon, screenshots)
 ├── n8n-workflows/       (n8n workflow JSON files)
@@ -43,6 +41,8 @@ dueday-mailer/
 ├── script.js
 ├── .gitignore
 └── README.md
+```
+
 
 ## Run it yourself
 
