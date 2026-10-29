@@ -3,9 +3,7 @@
 A simple web app that emails you a reminder on the day your task is due.
 Add a task, pick the due date and enter your email. On that day, the reminder lands in your inbox.
 
-Live demo: <un netlify link></un>
-
-![DueDay Mailer](https://duedaymailer.netlify.app/)
+Live demo:  [duedaymailer.netlify.app](https://duedaymailer.netlify.app/)<un netlify link></un>
 
 ## Features
 
